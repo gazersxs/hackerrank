@@ -1,0 +1,51 @@
+// https://www.hackerrank.com/challenges/p-sequences
+
+#include <cmath>
+#include <vector>
+#include <iostream>
+#include <map>
+using namespace std;
+
+
+int pSequences(int n, int q) {
+    int sqrtQ = int(sqrt(q));
+    int isSqrt = (q == sqrtQ * sqrtQ) ? 1 : 0;
+    int nSqrt = 2*sqrtQ - isSqrt;
+
+    vector<int> keys(nSqrt);
+    vector<unsigned long long> x(nSqrt), x0(nSqrt);
+    vector<unsigned long long> * v = & x, * v0 = &x0;
+
+    for (int i=0; i<sqrtQ; i++) {
+        keys[i] = i+1;
+        (*v)[i] = 1;
+    }
+    for (int i=sqrtQ, j=sqrtQ-isSqrt; i<nSqrt; i++, j--) {
+        keys[i] = q / j;
+        (*v)[i] = 1;
+    }
+
+    for (int i=2; i<=n; i++) {
+        swap(v0, v);
+        (*v)[nSqrt-1] = (*v0)[0];
+        for (int j=nSqrt-2; j>=0; j--) {
+            int k = nSqrt-j-1;
+            (*v)[j] = (*v)[j+1] + (*v0)[k] * (keys[k] - keys[k-1]);
+            if ((*v)[j] > 1000000007) { (*v)[j] %= 1000000007; }
+        }
+    }
+    unsigned long long cnt= (*v)[0];
+    for (int k=1; k<nSqrt; k++) {
+        cnt += (*v)[k] * (keys[k] - keys[k-1]);
+        if (cnt > 1000000007) { cnt %= 1000000007; }
+    }
+
+    return cnt;
+}
+
+int main() {
+    int n, q;
+    cin >> n >> q;
+    cout << pSequences(n, q) << endl;
+    return 0;
+}
