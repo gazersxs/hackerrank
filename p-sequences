@@ -1,4 +1,5 @@
 // https://www.hackerrank.com/challenges/p-sequences
+// a solution of O(N sqrt(Q)) runtime and O(sqrt(Q)) space
 
 #include <cmath>
 #include <vector>
