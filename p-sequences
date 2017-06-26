@@ -1,5 +1,5 @@
 // https://www.hackerrank.com/challenges/p-sequences
-// a solution of O(N sqrt(Q)) runtime and O(sqrt(Q)) space
+// a solution of O(N sqrt(P)) runtime and O(sqrt(P)) space
 
 #include <cmath>
 #include <vector>
@@ -45,8 +45,8 @@ int pSequences(int n, int q) {
 }
 
 int main() {
-    int n, q;
-    cin >> n >> q;
-    cout << pSequences(n, q) << endl;
+    int n, p;
+    cin >> n >> p;
+    cout << pSequences(n, p) << endl;
     return 0;
 }
